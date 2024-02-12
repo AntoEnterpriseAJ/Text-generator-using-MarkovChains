@@ -2,11 +2,12 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include "Random.h"
 
 struct Word
 {
 	std::string word;
-	int probability;
+	double probability;
 	int count = 0;
 };
 
@@ -41,6 +42,17 @@ bool isSentenceFoundAlready(const std::vector<SubSentence>& subSentences, const 
 		}
 	}
 	return false;
+}
+
+void calculateProbabilities(std::vector<SubSentence>& subSentences)
+{
+	for (auto& ss : subSentences)
+	{
+		for (auto& word : ss.wordsAfter)
+		{
+			word.probability = (1.0 * word.count / ss.totalAppearances) * 100;
+		}
+	}
 }
 
 int main()
@@ -89,12 +101,14 @@ int main()
 		currentSentence = currentSentence.substr(spaceIndex + 1) + word + ' ';
 	}
 
+	calculateProbabilities(subSentences);
+
 	for (const auto& x : subSentences)
 	{
 		std::cout << x.sentence << " " << x.totalAppearances << "		";
 		for (const auto& y : x.wordsAfter)
 		{
-			std::cout << y.word << "- " << y.count << "  ";
+			std::cout << y.word << "- " << y.count << ", " << y.probability << "%" << "  ";
 		}
 		std::cout << '\n';
 	}
