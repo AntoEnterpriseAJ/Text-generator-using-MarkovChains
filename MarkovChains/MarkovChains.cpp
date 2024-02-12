@@ -3,57 +3,7 @@
 #include <string>
 #include <fstream>
 #include "Random.h"
-
-struct Word
-{
-	std::string word;
-	double probability;
-	int count = 0;
-};
-
-struct SubSentence
-{
-	std::string sentence;
-	std::vector<Word> wordsAfter;
-	int totalAppearances = 0;
-};
-
-bool isAlreadyFoundAfter(const SubSentence& subSentences, const std::string& targetWord, int& indexFoundAt)
-{
-	for (int i = 0; i < subSentences.wordsAfter.size(); ++i)
-	{
-		if (subSentences.wordsAfter[i].word == targetWord)
-		{
-			indexFoundAt = i;
-			return true;
-		}
-	}
-	return false;
-}
-
-bool isSentenceFoundAlready(const std::vector<SubSentence>& subSentences, const std::string& targetSetence, int& indexFoundAt)
-{
-	for (int i = 0; i < subSentences.size(); ++i)
-	{
-		if (subSentences[i].sentence == targetSetence)
-		{
-			indexFoundAt = i;
-			return true;
-		}
-	}
-	return false;
-}
-
-void calculateProbabilities(std::vector<SubSentence>& subSentences)
-{
-	for (auto& ss : subSentences)
-	{
-		for (auto& word : ss.wordsAfter)
-		{
-			word.probability = (1.0 * word.count / ss.totalAppearances) * 100;
-		}
-	}
-}
+#include "MyUtilities.h"
 
 int main()
 {
@@ -108,10 +58,17 @@ int main()
 		std::cout << x.sentence << " " << x.totalAppearances << "		";
 		for (const auto& y : x.wordsAfter)
 		{
-			std::cout << y.word << "- " << y.count << ", " << y.probability << "%" << "  ";
+			std::cout << y.word << "- " << y.count << ", " << y.probability  << "  ";
 		}
 		std::cout << '\n';
 	}
+
+	int wordCount;
+	std::cout << "Number of words to be generated: ";
+	std::cin >> wordCount;
+
+
+	generateText(subSentences, wordPrecision, wordCount);
 
 	return 0;
 }
