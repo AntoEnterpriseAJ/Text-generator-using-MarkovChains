@@ -53,22 +53,36 @@ int main()
 
 	calculateProbabilities(subSentences);
 
-	for (const auto& x : subSentences)
+	while (true)
 	{
-		std::cout << x.sentence << " " << x.totalAppearances << "		";
-		for (const auto& y : x.wordsAfter)
+		std::cout << "Generate text(1)\nDisplay text details(2)\nExit(3)\nSelected option: ";
+		int option;
+		std::cin >> option;
+
+		switch (option)
 		{
-			std::cout << y.word << "- " << y.count << ", " << y.probability  << "  ";
+		case (1):
+		{
+			std::cout << "\nWord count: ";
+			int wordCount;
+			std::cin >> wordCount;
+			generateText(subSentences, wordPrecision, wordCount);
+			std::cout << "\n\n";
+			break;
 		}
-		std::cout << '\n';
+		case (2):
+		{
+			displayDetails(subSentences);
+			break;
+		}
+		case(3):
+		{
+			return 1;
+		}
+		default:
+			break;
+		}
 	}
-
-	int wordCount;
-	std::cout << "Number of words to be generated: ";
-	std::cin >> wordCount;
-
-
-	generateText(subSentences, wordPrecision, wordCount);
 
 	return 0;
 }

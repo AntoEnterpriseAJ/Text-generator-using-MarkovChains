@@ -49,6 +49,21 @@ void calculateProbabilities(std::vector<SubSentence>& subSentences)
 	}
 }
 
+void displayDetails(const std::vector<SubSentence>& subSentences)
+{
+	for (const auto& x : subSentences)
+	{
+		std::cout << x.sentence << " " << x.totalAppearances << "		";
+		for (const auto& y : x.wordsAfter)
+		{
+			std::cout << y.word << "- " << y.count << ", " << y.probability << "  ";
+		}
+		std::cout << '\n';
+	}
+	std::cout << "\n\n";
+}
+
+
 void generateText(const std::vector<SubSentence>& subSentences, const int& wordPrecision, const int& wordCount)
 {
 	SubSentence currentSubSentence = subSentences[randomNumberGen(0, subSentences.size() - 1)];

@@ -25,4 +25,6 @@ void calculateProbabilities(std::vector<SubSentence>& subSentences);
 
 void generateText(const std::vector<SubSentence>& subSentences, const int& wordPrecision, const int& wordCount);
 
+void displayDetails(const std::vector<SubSentence>& subSentences);
+
 #endif
