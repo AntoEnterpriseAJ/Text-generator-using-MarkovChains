@@ -4,7 +4,7 @@ A simple text generator using Markov Chains.
 
 ## Overview
 
-This program reads a text file, processes it using Markov Chains, and allows users to generate text based on learned patterns. The user specifies the word precision, which determines the size of word groups analyzed. The program then predicts the most likely next word for each group.
+This program reads a text file, processes it using Markov Chains, and allows users to generate text based on learned patterns. The user specifies the word precision, which determines the size of word groups analyzed. The program then predicts the most likely next word for each group by determining the probability of appearance for each word and choosing the next word based on a random number and a cumulative vector of possibilities.
 
 ## Usage
 
